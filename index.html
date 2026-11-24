@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Eine kleine Wichtel-Überraschung wartet auf dich.">
+  <title>Deine Wichtel-Überraschung</title>
+  <link rel="icon" href="assets/icon-brawlstars.png" type="image/png">
+  <link rel="preload" href="assets/lilitaone-regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pack.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="https://store.supercell.com" target="_blank" rel="noopener noreferrer" aria-label="Supercell Store"><img src="assets/store-logo.svg" alt="Supercell Store"></a>
+    <div class="top-actions">
+      <button class="pill-btn" id="music-toggle" type="button" aria-pressed="true" aria-label="Musik ausschalten"><svg class="pill-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3v10.55A4 4 0 1 0 11 17V7h6V3z"/></svg><span class="pill-label">MUSIK</span></button>
+      <button class="pill-btn" id="sound-toggle" type="button" aria-pressed="true" aria-label="Klick-Sounds ausschalten"><svg class="pill-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg><span class="pill-label">KLICK</span></button>
+    </div>
+  </header>
+  <div class="notice" id="notice" role="status"><span class="dot"></span><span>Hinweis: Diese Seite geht am <b>30.12.2026 um 00:00 Uhr</b> offline.</span><span class="count" id="notice-time"></span></div>
+
+  <main>
+    <!-- 1) Zugangscode -->
+    <section class="gate screen active" id="gate">
+      <article class="store-card">
+        <div class="banner">
+          <img class="banner-logo" src="assets/brawl-logo.png" alt="Brawl Stars">
+          <div class="banner-title"><img class="banner-icon" src="" alt=""><span class="banner-name"></span></div>
+          <img class="banner-art" src="assets/icon_skins_giftshop.png" alt="">
+        </div>
+        <div class="card-body">
+          <p class="eyebrow">Du hast Post bekommen</p>
+          <h1>Eine kleine <em>Überraschung</em> wartet auf dich.</h1>
+          <p class="lead">Diese Geschenkseite ist nur für dich bestimmt. Gib den Zugangscode ein, den du bekommen hast.</p>
+          <form id="access-form" class="code-form">
+            <label for="access-code">Dein Zugangscode</label>
+            <div class="input-wrap">
+              <input id="access-code" type="password" placeholder="Code eingeben" autocomplete="off" autocapitalize="characters" enterkeyhint="go" required>
+              <button type="button" class="eye-btn" id="eye-btn" aria-label="Code anzeigen" aria-pressed="false"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 5C7 5 2.7 8.1 1 12c1.7 3.9 6 7 11 7s9.3-3.1 11-7c-1.7-3.9-6-7-11-7zm0 11.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-7a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"/></svg></button>
+              <button type="submit" class="arrow-btn" aria-label="Weiter"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M12 4l-1.4 1.4 5.6 5.6H4v2h12.2l-5.6 5.6L12 20l8-8z"/></svg></button>
+            </div>
+            <p id="gate-error" class="error" role="alert"></p>
+          </form>
+        </div>
+      </article>
+      <p class="picker-label">Wähle dein Spiel</p>
+      <div class="game-picker" role="group" aria-label="Spiel wählen"></div>
+      <p class="picker-label">Folge Nicominecith</p>
+      <div class="my-socials"></div>
+    </section>
+
+    <!-- 2) Geschenk -->
+    <section class="gift screen" id="gift" aria-live="polite">
+      <article class="store-card gift-card">
+        <div class="banner">
+          <img class="banner-logo" src="assets/brawl-logo.png" alt="Brawl Stars">
+          <div class="banner-title"><img class="banner-icon" src="" alt=""><span class="banner-name"></span></div>
+          <img class="banner-art" src="assets/gift-art.png" alt="Spiel-Geschenk" onerror="this.src='assets/icon_shop.png'">
+        </div>
+        <div class="card-body">
+          <p class="eyebrow">Du hast es geschafft</p>
+          <h1>Dein Geschenk ist <em>freigeschaltet!</em></h1>
+          <p class="lead">Ein kleines Extra für deinen nächsten Besuch im Store.</p>
+          <div class="voucher" id="voucher-area">
+            <div><small>Dein Gutscheincode</small><strong id="voucher-code">WIRD GELADEN</strong></div>
+            <button id="copy-btn" class="copy-btn" type="button">Kopieren</button>
+          </div>
+          <p id="copy-status" class="copy-status" aria-live="polite"></p>
+        </div>
+      </article>
+
+      <h2 class="section-title">Wähle dein Spiel</h2>
+      <div class="game-picker" role="group" aria-label="Spiel wählen"></div>
+
+      <section class="game-panel" id="game-panel" aria-live="polite">
+        <p class="panel-eyebrow">Jetzt spielen</p>
+        <div class="panel-head">
+          <img id="gp-icon" src="" alt="">
+          <div>
+            <h2 id="gp-name"></h2>
+            <p id="gp-tagline"></p>
+          </div>
+        </div>
+        <p id="gp-desc" class="panel-desc"></p>
+        <div class="badges">
+          <a id="gp-appstore" href="#" target="_blank" rel="noopener noreferrer"><img src="assets/badge-appstore.svg" alt="Laden im App Store"></a>
+          <a id="gp-play" href="#" target="_blank" rel="noopener noreferrer"><img src="assets/badge-googleplay.png" alt="Jetzt bei Google Play"></a>
+        </div>
+        <p class="panel-sub">Folge dem Spiel auf</p>
+        <div class="social" id="gp-social"></div>
+      </section>
+
+      <p class="panel-sub" style="color:var(--muted);text-align:center;margin-top:26px">Folge Nicominecith</p>
+      <div class="my-socials"></div>
+
+      <a class="store-link" href="https://store.supercell.com" target="_blank" rel="noopener noreferrer"><span class="arrow-svg"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 4l-1.4 1.4 5.6 5.6H4v2h12.2l-5.6 5.6L12 20l8-8z"/></svg></span> Zum Supercell Store</a>
+      <p class="disclaimer">Private Geschenkseite – kein offizieller Supercell-Auftritt und nicht von Supercell betrieben.</p>
+    </section>
+
+    <!-- 3) Abgelaufen -->
+    <section class="expired screen" id="expired">
+      <article class="store-card">
+        <div class="card-body">
+          <div class="expired-icon"><svg class="expired-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 2v6l4 4-4 4v6h12v-6l-4-4 4-4V2zm10 14.5V20H8v-3.5l4-4zM8 7.5V4h8v3.5l-4 4z"/></svg></div>
+          <h1>Die Überraschung <em>ist abgelaufen.</em></h1>
+          <p class="lead">Diese Wichtel-Seite war nur bis zum 30. Dezember 2026 um 00:00 Uhr erreichbar.</p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-title">Folge uns hier:</p>
+      <div class="social social-dark">
+        <a href="https://supr.cl/2FyB6q2" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a href="https://supr.cl/353IhiL" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://supr.cl/3j8f2Ai" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://supr.cl/2pzzIsf" target="_blank" rel="noopener noreferrer">Twitter</a>
+        <a href="https://supr.cl/2T3yYJS" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <hr>
+      <p class="footer-title">Hier kannst du unsere Spiele herunterladen:</p>
+      <div class="badges">
+        <a href="https://supr.cl/appstorescgames" target="_blank" rel="noopener noreferrer"><img src="assets/badge-appstore.svg" alt="Laden im App Store"></a>
+        <a href="https://play.google.com/store/apps/dev?id=6715068722362591614&hl=en" target="_blank" rel="noopener noreferrer"><img src="assets/badge-googleplay.png" alt="Jetzt bei Google Play"></a>
+      </div>
+      <hr>
+      <nav class="footer-links" aria-label="Rechtliches">
+        <a href="https://supercell.com/en/terms-of-service/" target="_blank" rel="noopener noreferrer">Nutzungsbedingungen</a>
+        <a href="https://supercell.com/en/privacy-policy/" target="_blank" rel="noopener noreferrer">Datenschutzrichtlinie</a>
+        <a href="https://supercell.com/en/parents/" target="_blank" rel="noopener noreferrer">Leitfaden für Eltern</a>
+        <a href="https://supercell.com/en/safe-and-fair-play/" target="_blank" rel="noopener noreferrer">Sicheres und faires Spielen</a>
+      </nav>
+
+      <p class="footer-title">Folge dem Creator:</p>
+      <div class="my-socials dark"></div>
+      <hr>
+      <div class="creator" aria-label="Creator">
+        <span class="creator-badge">CREATOR</span>
+        <p class="creator-text">Diese Seite wurde gemacht von <strong>Nicominecith</strong></p>
+        <svg class="creator-heart" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18z"/></svg>
+      </div>
+      <div class="footer-bottom">
+        <div>
+          <p class="footer-note">Private Fan-/Geschenkseite – kein offizieller Supercell-Auftritt.<br>Marken und Assets gehören ihren jeweiligen Rechteinhabern.</p>
+          <p class="footer-note">© Wichtel Special 2026</p>
+        </div>
+        <img class="footer-logo" src="assets/default.svg" alt="Supercell">
+      </div>
+    </div>
+  </footer>
+
+  <div class="pack-stage" id="pack" role="dialog" aria-modal="true" aria-label="Wichtel-Pack öffnen" hidden>
+    <div class="rays"></div><div class="flash"></div>
+    <button class="pack-skip" id="pack-skip" type="button">Überspringen</button>
+    <div class="pack-wrap">
+      <div class="pack" id="pk">
+        <div class="pk-top" id="pk-top"></div>
+        <div class="pk-main"><img class="pk-ico" id="pk-ico" src="" alt=""><div class="pk-title">WICHTEL<br>BOOSTER</div><div class="pk-sub" id="pk-game"></div><div class="pk-stars">★★★</div></div>
+        <div class="tear"></div><div class="tear-zone" id="tear-zone"></div>
+      </div>
+      <p class="pack-hint" id="pack-hint">Wische über die obere Kante, um das Pack aufzureißen</p>
+      <button class="cta" id="pack-open" type="button">Pack öffnen</button>
+    </div>
+    <div class="cards" id="cards" hidden></div>
+    <button class="cta pack-done" id="pack-done" type="button" hidden>Geschenk ansehen</button>
+  </div>
+
+  <audio id="menu-sound" src="assets/Menu-click.mp3" preload="auto"></audio>
+  <audio id="bg-music" preload="none" playsinline></audio>
+  <noscript><p class="noscript">Bitte aktiviere JavaScript, damit die Seite funktioniert.</p></noscript>
+  <script src="script.js"></script>
+  <script src="pack.js"></script>
+</body>
+</html>
